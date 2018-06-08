@@ -5,22 +5,13 @@ use Slim\Http\Response;
 
 // Routes
 
-/*$app->get('/[{name}]', function (Request $request, Response $response, array $args) {
-    // Sample log message
-    $this->logger->info("Slim-Skeleton '/' route");
-
-    // Render index view
-    return $this->renderer->render($response, 'index.phtml', $args);
-});
-*/
-
 define('DEBUG',true);
 
 $app->get('/notes/all/limit/{num}', function($request) {
 
     require_once('db.php');
     $limit_num = intval($request->getAttribute('num'));
-    $querystring = "select * from notes order by `date` LIMIT $limit_num";
+    $querystring = "select * from notes order by `date` DESC LIMIT $limit_num";
 
     try {
         $results = query($querystring,[],true);
