@@ -28,14 +28,14 @@ $app->get('/notes/all/limit/{num}', function() {
 $app->post('/notes/new', function($request){
 
     require_once('db.php');
-    $get_id = $request->getAttribute('book_id');
-    $query = "INSERT INTO notes SET book_name = ?, book_isbn = ?, book_category = ? WHERE book_id = $get_id";
-    $stmt = $connection->prepare($query);
-    $stmt->bind_param("sss",$book_name,$book_isbn,$book_category);
-    $book_name = $request->getParsedBody()['book_name'];
-    $book_isbn = $request->getParsedBody()['book_isbn'];
-    $book_category = $request->getParsedBody()['book_category'];
-    $stmt->execute();
+    $querystring = "INSERT INTO notes (`author`,`content`,`date`) VALUES (:author,:content,NOW())";
+    $note_author = $request->getParsedBody()['note_author'];
+    $note_content = $request->getParsedBody()['note_content'];
+    $result = query($querystring, [
+        'author' => $note_author,
+        'content' => $note_content
+    ]);
+
 
 });
 
