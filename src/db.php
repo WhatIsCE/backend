@@ -1,5 +1,7 @@
 <?php
 
+require_once('dbconfig.php');
+
 function query($querystring, $params = [], $needsOutput=false)
 {
     $conn = new PDO("mysql:host=".SQLSERVERIP.";dbname=".SQLSERVERDBNAME, SQLSERVERUSER,SQLSERVERPSSWD);
