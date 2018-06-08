@@ -60,7 +60,7 @@ $app->post('/notes/new', function($request){
 $app->get('/notes/{note_id}', function($request){
     require_once('db.php');
 
-    $get_id = $request->getAttribute('note_id');
+    $get_id = intval($request->getAttribute('note_id'));
     $querystring = "SELECT * from notes WHERE `id`= :id";
 
     try {
