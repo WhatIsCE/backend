@@ -2,6 +2,12 @@
 
 require_once('dbconfig.php');
 
+
+/*
+ * query function
+ * does SQL query and returns if needed.
+*/
+
 function query($querystring, $params = [], $needsOutput=false)
 {
     $conn = new PDO("mysql:host=".SQLSERVERIP.";dbname=".SQLSERVERDBNAME, SQLSERVERUSER,SQLSERVERPSSWD);
