@@ -16,12 +16,18 @@ $app->get('/[{name}]', function (Request $request, Response $response, array $ar
 $app->get('/notes/all/limit/{num}', function() {
 
     require_once('db.php');
-    $query = "select * from library order by book_id";
-    $result = $connection->query($query);
-    while ($row = $result->fetch_assoc()){
-        $data[] = $row;
+    $get_id = intval($request->getAttribute('num'));
+    $querystring = "select * from notes order by `date` LIMIT $get_id";
+
+    $results = query($query, [
+        "id" => $get_id
+    ],true);
+
+    if (count($results)>0) {
+        echo json_encode($results);
+    } else {
+        echo '{"error":"ERROR"}';
     }
-    echo json_encode($data);
 
 });
 
