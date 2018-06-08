@@ -16,7 +16,7 @@ use Slim\Http\Response;
 
 define('DEBUG',true);
 
-$app->get('/notes/all/limit/{num}', function() {
+$app->get('/notes/all/limit/{num}', function($request) {
 
     require_once('db.php');
     $limit_num = intval($request->getAttribute('num'));
