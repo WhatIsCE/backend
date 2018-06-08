@@ -12,3 +12,51 @@ $app->get('/[{name}]', function (Request $request, Response $response, array $ar
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
+
+$app->get('/notes/limit/{num}', function() {
+
+    require_once('db.php');
+    $query = "select * from library order by book_id";
+    $result = $connection->query($query);
+    while ($row = $result->fetch_assoc()){
+        $data[] = $row;
+    }
+    echo json_encode($data);
+
+});
+
+$app->post('/notes/new', function($request){
+
+    require_once('db.php');
+    $get_id = $request->getAttribute('book_id');
+    $query = "INSERT INTO notes SET book_name = ?, book_isbn = ?, book_category = ? WHERE book_id = $get_id";
+    $stmt = $connection->prepare($query);
+    $stmt->bind_param("sss",$book_name,$book_isbn,$book_category);
+    $book_name = $request->getParsedBody()['book_name'];
+    $book_isbn = $request->getParsedBody()['book_isbn'];
+    $book_category = $request->getParsedBody()['book_category'];
+    $stmt->execute();
+
+});
+
+$app->get('/notes/{book_id}', function($request){
+
+ require_once('db.php');
+
+ $get_id = $request->getAttribute('book_id');
+
+ $query = "UPDATE library SET book_name = ?, book_isbn = ?, book_category = ? WHERE book_id = $get_id";
+
+ $stmt = $connection->prepare($query);
+
+ $stmt->bind_param("sss",$book_name,$book_isbn,$book_category);
+
+ $book_name = $request->getParsedBody()['book_name'];
+
+ $book_isbn = $request->getParsedBody()['book_isbn'];
+
+ $book_category = $request->getParsedBody()['book_category'];
+
+ $stmt->execute();
+
+});
