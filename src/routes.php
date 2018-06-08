@@ -26,7 +26,7 @@ $app->get('/notes/all/limit/{num}', function() {
     if (count($results)>0) {
         echo json_encode($results);
     } else {
-        echo '{"error":"ERROR"}';
+        echo '{"status":"ERROR"}';
     }
 
 });
@@ -41,6 +41,11 @@ $app->post('/notes/new', function($request){
         'author' => $note_author,
         'content' => $note_content
     ]);
+    if ($result == "969") {
+        echo '{"status":"done"}';
+    } else {
+        echo '{"status":"'.$result.'"}';
+    }
 
 
 });
@@ -58,7 +63,7 @@ $app->get('/notes/{note_id}', function($request){
     if (count($results)>0) {
         echo json_encode($results);
     } else {
-        echo '{"error":"ERROR"}';
+        echo '{"status":"ERROR"}';
     }
 
 });
