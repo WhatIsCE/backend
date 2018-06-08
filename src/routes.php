@@ -66,7 +66,7 @@ $app->post($settings['settings']['route_prefix'].'/notes/new', function($request
 
 });
 
-$app->get($settings['settings']['route_prefix'].'/notes/{note_id}', function($request){
+$app->get($settings['settings']['route_prefix'].'/note/{note_id}', function($request){
     require_once('db.php');
 
     $get_id = intval($request->getAttribute('note_id'));
