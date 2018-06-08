@@ -17,7 +17,7 @@ $app->get($settings['settings']['route_prefix'].'/notes/all/limit/{num}', functi
         $results = query($querystring,[],true);
 
         if (count($results)>0) {
-         echo json_encode($results);
+         echo json_encode($results,JSON_UNESCAPED_UNICODE);
         } else {
             echo '{"status":"not found"}';
         }
@@ -78,7 +78,7 @@ $app->get($settings['settings']['route_prefix'].'/note/{note_id}', function($req
         ],true);
 
         if (count($results)>0) {
-         echo json_encode($results);
+         echo json_encode($results,JSON_UNESCAPED_UNICODE);
         } else {
             echo '{"status":"Not Found!"}';
         }
