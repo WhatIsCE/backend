@@ -39,7 +39,14 @@ $app->post('/notes/new', function($request){
     $querystring = "INSERT INTO notes (`author`,`content`,`date`) VALUES (:author,:content,NOW())";
     $note_author = $request->getParsedBody()['author'];
     $note_content = $request->getParsedBody()['content'];
+    $validation_key = $request->getParsedBody()['key'];
 
+    //SPECIALKEY is defined in dbconfig.php
+    //Didn't use a key database because we don't need more than one client.
+
+    if ($validation_key != SPECIALKEY) {
+        die('{"status":"Permission denied"}');
+    }
     try {
         query($querystring, [
             'author' => $note_author,
