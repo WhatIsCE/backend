@@ -45,6 +45,8 @@ $app->post('/notes/new', function($request){
             'author' => $note_author,
             'content' => $note_content
         ]);
+
+        echo '{"status":"done"}';
     }
     catch(Exception $e) {
         if (DEBUG) {
