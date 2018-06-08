@@ -27,6 +27,13 @@
             "Tests\\": "tests/"
         }
     },
+    "archive": {
+        "exclude": [
+            "vendor",
+            ".DS_Store",
+            "*.log"
+        ]
+    },
     "config": {
         "process-timeout" : 0
     },
