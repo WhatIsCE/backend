@@ -19,8 +19,8 @@ define('DEBUG',true);
 $app->get('/notes/all/limit/{num}', function() {
 
     require_once('db.php');
-    $get_id = intval($request->getAttribute('num'));
-    $querystring = "select * from notes order by `date` LIMIT $get_id";
+    $limit_num = intval($request->getAttribute('num'));
+    $querystring = "select * from notes order by `date` LIMIT $limit_num";
 
     try {
         $results = query($querystring,[],true);
