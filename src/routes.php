@@ -7,7 +7,7 @@ use Slim\Http\Response;
 
 define('DEBUG',true);
 
-$app->get('/notes/all/limit/{num}', function($request) {
+$app->get($settings['settings']['route_prefix'].'/notes/all/limit/{num}', function($request) {
 
     require_once('db.php');
     $limit_num = intval($request->getAttribute('num'));
@@ -33,7 +33,7 @@ $app->get('/notes/all/limit/{num}', function($request) {
 
 });
 
-$app->post('/notes/new', function($request){
+$app->post($settings['settings']['route_prefix'].'/notes/new', function($request){
 
     require_once('db.php');
     $querystring = "INSERT INTO notes (`author`,`content`,`date`) VALUES (:author,:content,NOW())";
@@ -66,7 +66,7 @@ $app->post('/notes/new', function($request){
 
 });
 
-$app->get('/notes/{note_id}', function($request){
+$app->get($settings['settings']['route_prefix'].'/notes/{note_id}', function($request){
     require_once('db.php');
 
     $get_id = intval($request->getAttribute('note_id'));
