@@ -37,8 +37,8 @@ $app->post('/notes/new', function($request){
 
     require_once('db.php');
     $querystring = "INSERT INTO notes (`author`,`content`,`date`) VALUES (:author,:content,NOW())";
-    $note_author = $request->getParsedBody()['note_author'];
-    $note_content = $request->getParsedBody()['note_content'];
+    $note_author = $request->getParsedBody()['author'];
+    $note_content = $request->getParsedBody()['content'];
 
     try {
         query($querystring, [
