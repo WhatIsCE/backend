@@ -1,4 +1,5 @@
 /vendor/
 /logs/*
+/tests/
 !/logs/README.md
 /src/dbconfig.php
