@@ -13,7 +13,7 @@ $app->get('/[{name}]', function (Request $request, Response $response, array $ar
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
-$app->get('/notes/limit/{num}', function() {
+$app->get('/notes/all/limit/{num}', function() {
 
     require_once('db.php');
     $query = "select * from library order by book_id";
@@ -39,24 +39,20 @@ $app->post('/notes/new', function($request){
 
 });
 
-$app->get('/notes/{book_id}', function($request){
+$app->get('/notes/{note_id}', function($request){
+    require_once('db.php');
 
- require_once('db.php');
+    $get_id = $request->getAttribute('note_id');
+    $querystring = "SELECT * from notes WHERE `id`= :id";
 
- $get_id = $request->getAttribute('book_id');
+    $results = query($query, [
+        "id" => $get_id
+    ],true);
 
- $query = "UPDATE library SET book_name = ?, book_isbn = ?, book_category = ? WHERE book_id = $get_id";
-
- $stmt = $connection->prepare($query);
-
- $stmt->bind_param("sss",$book_name,$book_isbn,$book_category);
-
- $book_name = $request->getParsedBody()['book_name'];
-
- $book_isbn = $request->getParsedBody()['book_isbn'];
-
- $book_category = $request->getParsedBody()['book_category'];
-
- $stmt->execute();
+    if (count($results)>0) {
+        echo json_encode($results);
+    } else {
+        echo '{"error":"ERROR"}';
+    }
 
 });
