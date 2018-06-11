@@ -36,9 +36,10 @@ $app->get($settings['settings']['route_prefix'].'/notes/all/limit/{num}', functi
 $app->post($settings['settings']['route_prefix'].'/notes/new', function($request){
 
     require_once('db.php');
-    $querystring = "INSERT INTO notes (`author`,`content`,`date`) VALUES (:author,:content,NOW())";
+    $querystring = "INSERT INTO `notes` (`author`,`content`,`date`,`url`) VALUES(:author,:content,NOW(),:url);";
     $note_author = $request->getParsedBody()['author'];
     $note_content = $request->getParsedBody()['content'];
+    $note_url = $request->getParsedBody()['url'];
     $validation_key = $request->getParsedBody()['key'];
 
     //SPECIALKEY is defined in dbconfig.php
@@ -49,8 +50,9 @@ $app->post($settings['settings']['route_prefix'].'/notes/new', function($request
     }
     try {
         query($querystring, [
-            'author' => $note_author,
-            'content' => $note_content
+            ':author' => $note_author,
+            ':content' => $note_content,
+            ':url' => $note_url
         ]);
 
         echo '{"status":"done"}';
