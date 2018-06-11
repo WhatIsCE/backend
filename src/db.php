@@ -8,7 +8,7 @@ require_once('dbconfig.php');
  * does SQL query and returns if needed.
 */
 
-function query($querystring, $params = [], $needsOutput=false)
+function query($querystring, $params = Array(), $needsOutput=false)
 {
     $conn = new PDO("mysql:host=".SQLSERVERIP.";dbname=".SQLSERVERDBNAME.";charset=utf8", SQLSERVERUSER,SQLSERVERPSSWD);
 
@@ -21,9 +21,9 @@ function query($querystring, $params = [], $needsOutput=false)
     foreach($params as $param => $value)
     {
         if (is_numeric($value))
-            $stmt->bindParam($param,$value,PDO::PARAM_INT);
+            $stmt->bindValue($param,$value,PDO::PARAM_INT);
         else
-            $stmt->bindParam($param,$value);
+            $stmt->bindValue($param,$value);
     }
 
     $stmt->execute();
