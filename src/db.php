@@ -10,7 +10,7 @@ require_once('dbconfig.php');
 
 function query($querystring, $params = [], $needsOutput=false)
 {
-    $conn = new PDO("mysql:host=".SQLSERVERIP.";dbname=".SQLSERVERDBNAME, SQLSERVERUSER,SQLSERVERPSSWD);
+    $conn = new PDO("mysql:host=".SQLSERVERIP.";dbname=".SQLSERVERDBNAME.";charset=utf8", SQLSERVERUSER,SQLSERVERPSSWD);
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     if (!($stmt = $conn->prepare($querystring)))
